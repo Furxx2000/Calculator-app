@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import {} from "./MainCalculator.vue";
-import { reactive } from "vue";
+import { nextTick, reactive } from "vue";
 
 interface input {
   curVal: string;
@@ -24,9 +24,11 @@ function getKey(val: string) {
   if (val === "+") {
     inputVal.storedVal.push(+inputVal.curVal);
     inputVal.curVal = "";
+
     return;
   }
   if (val === "=") {
+    if (!inputVal.curVal) return;
     inputVal.storedVal.push(+inputVal.curVal);
     let result: number = 0;
     inputVal.storedVal.forEach((v: number) => {
@@ -46,6 +48,8 @@ function getKey(val: string) {
     inputVal.storedVal = [];
     return;
   }
+  if (inputVal.curVal.length === 12) return;
+
   inputVal.curVal += val;
 }
 </script>
