@@ -1,0 +1,94 @@
+// -------------Theme 1-------------
+// Background color
+$main-bg: hsl(222, 26%, 31%);
+$keypad-bg: hsl(223, 31%, 20%);
+$screen-bg: hsl(224, 36%, 15%);
+
+$bg-key: hsl(225, 21%, 49%);
+$bg-key-shadow: hsl(224, 28%, 35%);
+$bg-key-red: hsl(6, 63%, 50%);
+$bg-key-red-shadow: hsl(6, 70%, 34%);
+$bg-key-light-grayish-orange: hsl(30, 25%, 89%);
+$bg-key-grayish-orange-shadow: hsl(28, 16%, 65%);
+
+$fs-400: 1.25rem;
+$fs-300: 1rem;
+$fs-200: 0.875rem;
+
+// Text color
+$text-grayish-blue: hsl(221, 14%, 31%);
+$text-white: hsl(0, 0%, 100%);
+
+// -------------Typo-------------
+$fs: 32px;
+
+// ------------Breakpoint-----------
+@mixin desktop {
+  @media (min-width: 1440px) {
+    @content;
+  }
+}
+
+// ----------Custom--------------
+@mixin container($padding-top, $padding-bottom, $max-width) {
+  padding: $padding-top $padding-bottom;
+  max-width: $max-width;
+}
+
+@mixin flex($gap) {
+  display: flex;
+  gap: $gap;
+}
+
+@mixin grid($gap) {
+  display: grid;
+  gap: $gap;
+}
+
+@mixin fontSize($fs) {
+  font-size: $fs;
+}
+
+@mixin keyType-1($area) {
+  grid-area: $area;
+  color: $text-grayish-blue;
+  background-color: $bg-key-light-grayish-orange;
+  box-shadow: 0 4px $bg-key-grayish-orange-shadow;
+  border-radius: 6px;
+}
+
+@mixin keyType-2($area) {
+  grid-area: $area;
+  color: $text-white;
+  background-color: $bg-key;
+  box-shadow: 0 4px $bg-key-shadow;
+  border-radius: 6px;
+}
+
+@mixin keyType-3($area) {
+  grid-area: $area;
+  color: $text-white;
+  background-color: $bg-key-red;
+  box-shadow: 0 4px $bg-key-red-shadow;
+  border-radius: 6px;
+}
+
+.text-white {
+  color: $text-white;
+}
+
+.flex {
+  @include flex(0.5rem);
+}
+
+.grid {
+  @include grid(0.5rem);
+}
+
+.bg-keypad {
+  background-color: $keypad-bg;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
