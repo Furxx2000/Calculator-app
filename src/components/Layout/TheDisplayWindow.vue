@@ -14,10 +14,13 @@ const { inputVal } = toRefs(props);
 
 <style lang="scss" scoped>
 div {
+  display: grid;
+  align-items: center;
   appearance: none;
   outline: none;
   width: 100%;
-  padding: 1rem 1.6rem;
+  padding-inline: 1.6rem;
+  padding-top: 0.5rem;
   font: inherit;
   font-size: 40px;
   border: 0;
