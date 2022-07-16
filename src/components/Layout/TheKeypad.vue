@@ -4,9 +4,11 @@ import {} from "./TheDisplayWindow.vue";
 const emit = defineEmits(["get-key"]);
 
 function keyClick(e: MouseEvent) {
-  const buttonEl = e.currentTarget as HTMLDivElement;
-  const action = buttonEl.textContent;
-  const btnContainer = buttonEl.parentElement;
+  const target = e.target as HTMLElement;
+  const buttonEl =
+    target.tagName.toLowerCase() === "button" ? target : target.parentElement!;
+  const action = buttonEl?.textContent;
+  const btnContainer = buttonEl.closest("section");
   if (action === "+" || action === "-" || action === "x" || action === "/") {
     btnContainer
       ?.querySelector("[aria-selected='true']")
@@ -17,63 +19,65 @@ function keyClick(e: MouseEvent) {
       ?.querySelector("[aria-selected='true']")
       ?.setAttribute("aria-selected", "false");
   }
-
+  if (buttonEl.tagName.toLowerCase() === "section") return;
   emit("get-key", action);
 }
 </script>
 
 <template>
-  <section>
-    <button class="seven" aria-selected="false" @click="keyClick">
+  <section @click="keyClick">
+    <button class="seven" aria-selected="false">
       <p>7</p>
     </button>
-    <button class="eight" aria-selected="false" @click="keyClick">
+    <button class="eight" aria-selected="false">
       <p>8</p>
     </button>
-    <button class="nine" aria-selected="false" @click="keyClick">
+    <button class="nine" aria-selected="false">
       <p>9</p>
     </button>
-    <button class="delete uppercase" @click="keyClick"><p>del</p></button>
-    <button class="four" aria-selected="false" @click="keyClick">
+    <button class="delete uppercase">
+      <p>del</p>
+    </button>
+    <button class="four" aria-selected="false">
       <p>4</p>
     </button>
-    <button class="five" aria-selected="false" @click="keyClick">
+    <button class="five" aria-selected="false">
       <p>5</p>
     </button>
-    <button class="six" aria-selected="false" @click="keyClick">
+    <button class="six" aria-selected="false">
       <p>6</p>
     </button>
-    <button class="plus" aria-selected="false" @click="keyClick">
+    <button class="plus" aria-selected="false">
       <p>+</p>
     </button>
-    <button class="one" aria-selected="false" @click="keyClick">
+    <button class="one" aria-selected="false">
       <p>1</p>
     </button>
-    <button class="two" aria-selected="false" @click="keyClick">
+    <button class="two" aria-selected="false">
       <p>2</p>
     </button>
-    <button class="three" aria-selected="false" @click="keyClick">
+    <button class="three" aria-selected="false">
       <p>3</p>
     </button>
-    <button class="minus" aria-selected="false" @click="keyClick">
+    <button class="minus" aria-selected="false">
       <p>-</p>
     </button>
-    <button class="dot" aria-selected="false" @click="keyClick">
+    <button class="dot" aria-selected="false">
       <p>.</p>
     </button>
-    <button class="zero" aria-selected="false" @click="keyClick">
+    <button class="zero" aria-selected="false">
       <p>0</p>
     </button>
-    <button class="slash" aria-selected="false" @click="keyClick">
+    <button class="slash" aria-selected="false">
       <p>/</p>
     </button>
-    <button class="multiply" aria-selected="false" @click="keyClick">
+    <button class="multiply" aria-selected="false">
       <p>x</p>
     </button>
-    <button class="reset uppercase" aria-selected="false" @click="keyClick">
+    <button class="reset uppercase" aria-selected="false">
       <p>reset</p>
     </button>
-    <button class="equal" aria-selected="false" @click="keyClick">
+    <button class="equal" aria-selected="false">
       <p>=</p>
     </button>
   </section>
