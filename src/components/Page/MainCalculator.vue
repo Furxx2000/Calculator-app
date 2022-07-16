@@ -8,49 +8,71 @@
 
 <script setup lang="ts">
 import {} from "./MainCalculator.vue";
-import { nextTick, reactive } from "vue";
+import { reactive } from "vue";
 
 interface input {
   curVal: string;
+  lastOperator: string;
   storedVal: number[];
 }
 
 const inputVal = reactive<input>({
   curVal: "",
+  lastOperator: "",
   storedVal: [],
 });
 
 function getKey(val: string) {
-  if (val === "+") {
+  if (val === "+" || val === "-" || val === "x" || val === "/") {
     inputVal.storedVal.push(+inputVal.curVal);
     inputVal.curVal = "";
-
-    return;
-  }
-  if (val === "=") {
-    if (!inputVal.curVal) return;
-    inputVal.storedVal.push(+inputVal.curVal);
-    let result: number = 0;
-    inputVal.storedVal.forEach((v: number) => {
-      result += v;
-      console.log(result);
-      inputVal.curVal = result.toString();
-    });
-    inputVal.storedVal = [];
+    inputVal.lastOperator = val;
     return;
   }
   if (val === "del") {
     inputVal.curVal = "";
     return;
   }
-  if (val == "reset") {
+  if (val === "reset") {
     inputVal.curVal = "";
+    inputVal.lastOperator = "";
     inputVal.storedVal = [];
     return;
   }
-  if (inputVal.curVal.length === 12) return;
+  if (val === "=") {
+    if (
+      !inputVal.curVal ||
+      !inputVal.lastOperator ||
+      (inputVal.curVal === "0" && inputVal.storedVal[0] === 0)
+    )
+      return;
+    calculate(+inputVal.curVal, inputVal.lastOperator);
+    inputVal.curVal = inputVal.storedVal[0].toString().slice(0, 12);
+    inputVal.lastOperator = "";
+    inputVal.storedVal = [];
+    return;
+  }
+
+  if (
+    inputVal.curVal.length === 10 ||
+    (inputVal.curVal === "0" && val !== ".") ||
+    (inputVal.curVal.includes(".") && val === ".")
+  )
+    return;
 
   inputVal.curVal += val;
+}
+
+function calculate(val: number, operator: string): void {
+  if (operator === "+") {
+    inputVal.storedVal[0] += val;
+  } else if (operator === "-") {
+    inputVal.storedVal[0] -= val;
+  } else if (operator === "x") {
+    inputVal.storedVal[0] *= val;
+  } else if (operator === "/") {
+    inputVal.storedVal[0] /= val;
+  }
 }
 </script>
 
