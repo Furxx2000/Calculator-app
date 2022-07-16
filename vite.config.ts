@@ -5,7 +5,7 @@ import postcssPresetEnv from "postcss-preset-env";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/furxx2000/",
+  base: "/Calculator-app/",
   plugins: [vue(), Components({ dts: true })],
   css: {
     preprocessorOptions: {
