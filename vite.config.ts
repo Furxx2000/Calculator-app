@@ -5,6 +5,7 @@ import postcssPresetEnv from "postcss-preset-env";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/Furxx2000/",
   plugins: [vue(), Components({ dts: true })],
   css: {
     preprocessorOptions: {
