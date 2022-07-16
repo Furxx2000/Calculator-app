@@ -47,20 +47,21 @@ function getKey(val: string) {
     )
       return;
     calculate(+inputVal.curVal, inputVal.lastOperator);
-    inputVal.curVal = inputVal.storedVal[0].toString().slice(0, 12);
+    inputVal.curVal = inputVal.storedVal[0].toString().slice(0, 9);
     inputVal.lastOperator = "";
     inputVal.storedVal = [];
     return;
   }
 
   if (
-    inputVal.curVal.length === 10 ||
+    inputVal.curVal.length >= 9 ||
     (inputVal.curVal === "0" && val !== ".") ||
     (inputVal.curVal.includes(".") && val === ".")
   )
     return;
 
   inputVal.curVal += val;
+  console.log(inputVal.curVal.length);
 }
 
 function calculate(val: number, operator: string): void {
